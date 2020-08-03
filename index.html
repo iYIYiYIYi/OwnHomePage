@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <title id="ohp-title">- 自   产   自   销 -</title>
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+        <script type="text/javascript" src="window-control.js"></script>
+        <script type="text/javascript" src="custom-websites.js"></script>
+        <script type="text/javascript" src="config-panel.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="window.css">
+    </head>
+    <body>
+        <!-- <script src="https://blog-static.cnblogs.com/files/zouwangblog/mouse-click.js"></script>
+            <canvas width="1777" height="841" style="position: absolute; left: 0px; top: 0px; z-index: inherit -100;"></canvas> -->
+
+        <div class="Config">
+            <button class="button-class" id="config" onclick="activeWindow('#edit-window')"></a>
+        </div>
+        <div class="center-panel">
+            <div class="Nav-head">
+                <span id="head">
+                    - 自   产   自   销 -
+                </span>
+            </div>
+            <div class="search-panel">
+                <button class="button-class" id="search-engine" onclick="activeWindow('#float-window');"></button>
+                <script type="text/javascript" language=JavaScript charset="UTF-8">
+                    document.onkeydown=function(event){
+                      var e = event || window.event || arguments.callee.caller.arguments[0];
+                        
+                       if(e && e.keyCode==13){ // enter 键
+                         //要做的事情
+                         search();
+                      }
+                    }; 
+                </script>
+                <input class="input-search" id="search-key" type="text" placeholder="搜索" />
+                <button class="button-class" id="search" onclick="search()"></button>
+            </div>
+            <div class="content-panel" id="content">
+                <div class="inline-panel">
+                    <div class="calendar panel">
+                        当前时间:
+                        <br>
+                        <label id="clock">---</label>
+                        <br>
+                        <br>
+                        今日天气:
+                        <br>
+                        <div id="he-plugin-simple"></div>
+                        
+                        <br>
+                    </div>
+                    
+                    <div class="search-history-panel panel">
+                        常用网页<p class="tip">双击文字删除，单击图标打开</p>
+                        <div class="favo-websites" id="favo-websites">
+                            <!-- <div class="website" id="tt-userWebsite" ondblclick="removeWebsite('tt')"> 
+                                <button class="deleteWebsite"></button>
+                                <a class="website-a" href="https://www.baidu.com">
+                                    <div class="website-icon"></div>
+                                </a>
+                                百度
+                            </div> -->
+                            <div class="website" onclick="activeWindow('#add-website-window')">                  
+                                <a class="website-a"><div class="website-icon"></div>添加</a>
+                            </div>
+                        </div>
+                    </div><br>
+                </div>
+
+                <div id="website-group">
+
+                    <!-- <div class="reco-websites standard-website-panel">
+                        <div class="panel-title">
+                            图标库
+                        </div>          
+                        <div class="websites-table">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="website">
+                                                <a class="website-a" target="_blank" href="https://www.iconfont.cn/">阿里巴巴矢量图标库</a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="website">
+                                                 <a class="website-a" target="_blank" href="https://www.iconfont.cn/">阿里巴巴矢量图标库</a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="website">
+                                                <a class="website-a" target="_blank" href="https://www.iconfont.cn/">阿里巴巴矢量图标库</a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="website">
+                                                <a class="website-a" target="_blank" href="https://www.iconfont.cn/">阿里巴巴矢量图标库</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <canvas></canvas>
+            <script type="text/javascript" src="boom.js"></script>
+        </div>
+    </body>
+
+    <div class="edit-website-panel panel" id="add-website-window">
+        <h3 class="window-title" style="color: aliceblue;">编辑网页<button class=" button-class close" onclick="closeWindow('#add-website-window')"></button></h3>
+        <div class="button-div" style="text-align:center;vertical-align:middel;">
+            <input id="input-custom-sitename" class="edit-input" placeholder="常用网站"><br>
+            <input id="input-custom-website" class="edit-input" placeholder="请输入网址"><br>
+            <button class="edit-submit square-button-class" onclick="submitWebsite()">添加</button>
+        </div>
+    </div>
+
+    <div class="edit-panel panel" id="edit-window">
+        <h3 class="window-title" style="color: aliceblue;">编辑<button class=" button-class close" onclick="closeWindow('#edit-window')"></button></h3>
+        <div class="edit-content">
+            <div class="edit-menu">
+                <button class="edit-button" onclick="showMenuContent('edit-home-panel')" id="edit-home" style="background: url('images/homepage.png') no-repeat;"></button>
+                <button class="edit-button" onclick="showMenuContent('edit-search-engine-panel')" id="edit-search-engine" style="background: url('images/search.png') no-repeat;"></button>
+                <button class="edit-button" onclick="showMenuContent('edit-standard-website-panel')" id="edit-standard-website"></button>
+            </div>
+            <div class="edit-menu-content">
+                <div id="edit-home-panel" class="menu-content">
+                    <h4>编辑标题</h4>
+                    <input type="text" class="edit-input-class" placeholder="Tab名称..." id="title-input">
+                    <textarea id="title-area" placeholder="网页大标题(支持ASCII art)..."></textarea>
+                    <button class="square-button-class edit-square-button" onclick="changeTitle()">应用</button>
+                </div>
+                <div id="edit-search-engine-panel" class="menu-content" style="display: none;">
+                    <h4>编辑搜索引擎</h4>
+
+                    <div class="website-piece">
+                        <input type="text" placeholder="网站名称" id="name-searchEngine-input" class="edit-input-class">
+                        <input type="text" placeholder="地址" id="url-searchEngine-input" class="edit-input-class">
+                        <button class="button-class edit-b-c right" onclick="adjustsearchEngine($('#name-searchEngine-input').val(),$('#url-searchEngine-input').val())"></button>
+                    </div>
+
+                    <!-- <div class="website-piece">
+                        <input type="text" id="name-searchEngine-input" class="edit-input-class">
+                        <input type="text" id="url-searchEngine-input" class="edit-input-class">
+                        <button class="button-class edit-b-c right"></button>
+                        <button class="button-class edit-b-c delete"></button>
+                    </div> -->
+                </div>
+                <div id="edit-standard-website-panel" class="menu-content" style="display: none;">
+                    <h4>编辑导航组</h4>
+                    <div class="websites-group-piece">
+                        <input id="newGroupName" type="text" class="edit-input-class" id="website-group-name" placeholder="导航组名称">
+                        <textarea id="newWebsites" class="websites-group"></textarea><br>
+                        <p class="tip">格式："name|url;"，不同url之间使用;隔开</p>
+                        <button onclick="setNewWebsitesGroup()" class="square-button-class edit-b-c edit-square-button">添加</button>
+                    </div>
+
+                    <!-- <div class="websites-group-piece">
+                        <div class="website-group-piece">
+                            <input type="text" class="edit-input-class" id="website-group-name">
+                            <button class="button-class edit-b-c right"></button>
+                            <button class="button-class edit-b-c delete"></button>
+                        </div>
+                        <textarea class="websites-group"></textarea>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="choose-search-engine panel" id="float-window">
+        <!-- 选择搜索引擎 -->
+    </div>
+
+    <script>
+        WIDGET = {
+        CONFIG: {
+            "modules": "01234",
+            "background": 1,
+            "tmpColor": "FFFFFF",
+            "tmpSize": 16,
+            "cityColor": "FFFFFF",
+            "citySize": 16,
+            "aqiSize": 16,
+            "weatherIconSize": 24,
+            "alertIconSize": 18,
+            "padding": "10px 10px 10px 10px",
+            "shadow": "1",
+            "language": "auto",
+            "borderRadius": 5,
+            "fixed": "false",
+            "vertical": "middle",
+            "horizontal": "center",
+            "key": "b697eedc0c4944c3b9a51ebc4d13d86d"
+        }
+        }
+        </script>
+        <script src="https://widget.heweather.net/simple/static/js/he-simple-common.js?v=1.1"></script>
+
+</html>
