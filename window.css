@@ -80,7 +80,7 @@
 
 .edit-content {
     display: flex;
-    color: white;
+    color: inherit;
 }
 
 .edit-button {
