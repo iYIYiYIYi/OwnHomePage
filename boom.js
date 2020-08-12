@@ -110,7 +110,12 @@ function init_particle(){
             for(let i = 0;i < max_particle_amount/10; i++) {
                 particlesArray.shift();
             }
-        }
+		}
+		
+		if(particlesArray.length > 10 && Math.random()*100 >= 75) {
+			particlesArray.shift();
+		}
+
     },lifetime);
 }
 addEventListener('click', (e) => {

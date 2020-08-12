@@ -14,17 +14,42 @@ function randomRgbaColor(minAlpha) { //随机生成RGBA颜色
     return `rgba(${r},${g},${b},${alpha})`; //返回rgba(r,g,b,a)格式颜色
 }
 
+function oppositRgbaColor(color) {
+
+    var num = color.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),(\d+.\d+)\)$/);//r,g,b
+    console.log(num);
+    var r = (256 - num[1] - Math.random()*3*(2.5-num[4])) %256;
+    var g = (256 - num[2] - Math.random()*3*(2.5-num[4])) %256;
+    var b = (256 - num[3] - Math.random()*3*(2.5-num[4])) %256;
+    var alpha = 1;
+    return `rgba(${r},${g},${b},${alpha})`;
+
+}
 
 function createRandomColorPanel() {
     var elems = document.getElementsByClassName("panel");
     for(let el of elems) {
-        el.style['background-color'] = randomRgbaColor(1.5);
-        if(el.id === "edit-window")
-            el.style['background-color'] = randomRgbaColor(5);
+        
+        var background_color = randomRgbaColor(1.7);
+        var opposit_color = oppositRgbaColor(background_color);
+        el.style['background-color'] = background_color;
+        el.style.color = opposit_color;
+        
+        if(el.id === "edit-window") {
+            background_color = randomRgbaColor(5);
+            opposit_color = oppositRgbaColor(background_color);
+            el.style['background-color'] = background_color;
+            el.style.color = opposit_color;
+        }
+        console.log(opposit_color);
+
     }
     var buttoms = document.getElementsByClassName("edit-square-button");
     for(let b of buttoms) {
-        b.style['background-color'] = randomRgbaColor(1);
+        var background_color = randomRgbaColor(1);
+        var opposit_color = oppositRgbaColor(background_color);
+        b.style['background-color'] = background_color;
+        b.style.color = opposit_color;
     }
     // document.documentElement.style['background-color'] = randomRgbaColor(1); //主页随机颜色
 }

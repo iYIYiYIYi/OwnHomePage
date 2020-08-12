@@ -148,7 +148,6 @@ canvas{
 
 .calendar {
     font-size: 18px;
-    color: rgb(214, 214, 214);
     height: 230px;
     width: 30%;
     margin-left: 10%;
@@ -170,7 +169,6 @@ canvas{
 #clock {
     font-weight: 900;
     font-size: 25px;
-    color: rgb(255, 240, 195);
 }
 
 .inline-panel {
@@ -179,7 +177,6 @@ canvas{
 
 .search-history-panel {
     font-size: 18px;
-    color: rgb(214, 214, 214);
     min-height: 230px;
     width: 43%;
     margin-top: 15px;
@@ -223,15 +220,19 @@ canvas{
 
 .website-a {
     outline: none;
-    color: white;
-    font-size: 14px;
+    font-size: 16px;
     text-decoration: none;
     cursor: url("images/Hand.cur"),pointer;
     text-align: center;
     align-content: center;
 }
 
+a {
+    color: inherit;
+}
+
 .website {
+    color: inherit;
     text-align: center;
     align-content: center;
     margin: 3px;
@@ -244,7 +245,7 @@ canvas{
 }
 
 .website:hover {
-    background-color: rgba(70, 17, 17, 0.4);
+    background-color: rgba(255, 200, 200, 0.3);
 }
 
 .website:active {
@@ -252,8 +253,7 @@ canvas{
 }
 
 .standard-website-panel {
-    font-size: 18px;
-    color: rgb(80, 80, 80);
+    font-size: 21px;
     margin: 15px;
     padding: 15px;
     min-width: 77%;
@@ -272,7 +272,7 @@ canvas{
 
 .panel-title {
     font-size: 24px;
-    color: white;
+    color: inherit;
 }
 
 table {
@@ -286,4 +286,24 @@ table {
     margin: 0;
     padding: 0;
 
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:white;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:white;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:white;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:white;
+}
+
+.test {
+    color: rgb(51, 255, 0);
 }
