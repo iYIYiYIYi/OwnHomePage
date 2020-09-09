@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html class="panel">
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <title id="ohp-title">- 自   产   自   销 -</title>
+        
         <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="color.json"></script>
+        
         <script type="text/javascript" src="script.js?v=20200812"></script>
-        <script type="text/javascript" src="window-control.js?v=20200812-1"></script>
+        <script type="text/javascript" src="window-control.js?v=20200901-2"></script>
         <script type="text/javascript" src="custom-websites.js"></script>
         <script type="text/javascript" src="config-panel.js"></script>
+        <script type="text/javascript" src="md5.js"></script>
+
+        <script type="text/javascript" src="respond-server.js?v=20200901-1"></script>
+        
         <link rel="stylesheet" type="text/css" href="style.css?v=20200812-1">
         <link rel="stylesheet" type="text/css" href="window.css?v=20200812-1">
         <link rel="icon"  href="images/favicon.ico"  type="image/x-ico" />
@@ -134,6 +141,7 @@
                 <button class="edit-button" onclick="showMenuContent('edit-home-panel')" id="edit-home" style="background: url('images/homepage.png') no-repeat;"></button>
                 <button class="edit-button" onclick="showMenuContent('edit-search-engine-panel')" id="edit-search-engine" style="background: url('images/search.png') no-repeat;"></button>
                 <button class="edit-button" onclick="showMenuContent('edit-standard-website-panel')" id="edit-standard-website"></button>
+                <button class="edit-button" onclick="showMenuContent('edit-user-info')" id="edit-user" style="background: url('images/user.png') no-repeat;"></button>
             </div>
             <div class="edit-menu-content">
                 <div id="edit-home-panel" class="menu-content">
@@ -160,11 +168,24 @@
                 </div>
                 <div id="edit-standard-website-panel" class="menu-content" style="display: none;">
                     <h4>编辑导航组</h4>
+                    <div class="websites-group-piece" style="display: inline-flex;">
+                        <input id="websiteHash" type="text" class="edit-input-class" placeholder="导航组标识码">
+                        <button onclick="addWebsiteGroupByWebsiteHash()"  style="margin: auto 5px;" class="button-class edit-b-c right"></button>
+                        <p class="tips" style="text-align:center;margin: auto 5px; color: rgb(107, 11, 30);font-size: 14px;" id="getwebsite-tip">
+                            没登陆就会保存在本地哦
+                        </p>
+                    </div>
                     <div class="websites-group-piece">
-                        <input id="newGroupName" type="text" class="edit-input-class" id="website-group-name" placeholder="导航组名称">
+                        <input id="newGroupName" type="text" class="edit-input-class" placeholder="导航组名称">
                         <textarea id="newWebsites" class="websites-group"></textarea><br>
                         <p class="tip">格式："name|url;"，不同url之间使用;隔开</p>
-                        <button onclick="setNewWebsitesGroup()" class="square-button-class edit-b-c edit-square-button">添加</button>
+                        <button onclick="setNewWebsitesGroup()" style="margin: 5px;" class="square-button-class edit-b-c edit-square-button">添加</button>
+                        <div style="display: inline-flex;">
+                            <input type="checkbox" style="margin: auto 5px;" class="bing-wallpaper-checkbox" id="websites-group-update">
+                            <label class="tip" style="margin: auto 2px;" for="websites-group-update">
+                                同步到云端
+                            </label>
+                        </div>
                     </div>
 
                     <!-- <div class="websites-group-piece">
@@ -175,6 +196,42 @@
                         </div>
                         <textarea class="websites-group"></textarea>
                     </div> -->
+                </div>
+                <div id="edit-user-info" class="menu-content" style="display: none;">
+                    <h4>编辑用户</h4>
+                    <div class="user website-piece">
+                        <div id="userLogin">
+                            <input id="username" type="text" class="edit-input-class" placeholder="用户名">
+                            <input id="password" type="password" class="edit-input-class" placeholder="密码"><br>
+                            <div style="display: inline-flex;">
+                                <button id="login" onclick="loginUser()" style="margin: 10px 7px;" class="square-button-class edit-b-c edit-square-button">登录</button>
+                                <button id="register" onclick="registerUser()" style="margin: 10px 5px;" class="square-button-class edit-b-c edit-square-button">注册</button>
+                                <input type="checkbox" style="margin: auto 5px;" class="bing-wallpaper-checkbox" id="remember-user">
+                                <label class="tip" style="margin: auto 2px;" for="remember-user">
+                                    要一直登录嘛
+                                </label>
+                                <p class="tips" style="text-align:center;margin: auto 5px; color: rgb(107, 11, 30);font-size: 14px;" id="login-tip"></p>
+                            </div>
+                        </div>
+                        <div id="userLogged" style="display: none;">
+                            &emsp;用户：<span style="font-size: 27px;margin: 15px;color: brown;" id="username-span"></span> 已登录
+                            <div style="display: inline-flex;">
+                                <button id="logout"  style="margin: 10px 5px;" onclick="logoutUser()" class="square-button-class edit-b-c edit-square-button">注销</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="website-piece">
+                        <input type="checkbox" class="bing-wallpaper-checkbox" onclick="useWallpaper()" id="bing-wallpaper">
+                        <label class="use-bing-wallpaper" for="bing-wallpaper">
+                            使用Bing壁纸
+                        </label><p class="tip" style="margin: auto 5px;">(刷新页面生效)</p>
+                    </div>
+                    <div class="website-piece">
+                        <input type="checkbox" class="bing-wallpaper-checkbox" onclick="useParticle()" id="particle">
+                        <label class="use-bing-wallpaper" for="particle">
+                            使用背景粒子
+                        </label><p class="tip" style="margin: auto 5px;">(刷新页面生效)</p>
+                    </div>
                 </div>
             </div>
         </div>

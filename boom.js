@@ -101,13 +101,13 @@ function init_particle(){
             particlesArray.shift();
 
         if(particlesArray.length > 2 * max_particle_amount) {
-            for(let i = 0;i < max_particle_amount/5; i++) {
+            for(let i = 0;i < max_particle_amount/3; i++) {
                 particlesArray.shift();
             }
         }
 
         if(particlesArray.length > 3 * max_particle_amount) {
-            for(let i = 0;i < max_particle_amount/10; i++) {
+            for(let i = 0;i < max_particle_amount/5; i++) {
                 particlesArray.shift();
             }
 		}
@@ -119,7 +119,7 @@ function init_particle(){
     },lifetime);
 }
 addEventListener('click', (e) => {
-	for(let i = 0; i < 20; i++){
+	for(let i = 0; i < 6; i++){
 		const randRadius = Math.random() * 15;
 		const randVelocity = Math.random() * 10;
 		var randColorIndex = Math.floor(Math.random() * colorsArray.length);

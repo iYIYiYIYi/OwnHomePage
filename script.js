@@ -5,6 +5,8 @@ var userWebsites = new Array(); //用户自定义常用网站
 var urls = new Array();         //用户自定义搜索引擎
 
 function init() {
+
+
   init_custom_website();
   urls.push("https://www.baidu.com/s?&wd=");
   urls.push("https://www.dogedoge.com/results?q=");
@@ -12,15 +14,38 @@ function init() {
   urls.push("https://gobaidugle.com/search?keyword=");
   initPanels();
   initWebsites();
-  createRandomColorPanel();
+  loadJSON('color.json');
+  // createRandomColorPanel();
   
-
-  animate();
-  init_particle();
+  if(getCookie("useParticle") == "true") {
+    $("#particle").attr("checked",true);
+    animate();
+    init_particle();
+  }
 
   getTime();
 
-  document.documentElement.style = "background: url(\"http://bing.ioliu.cn/v1/rand/?w=1280&h=720\");background-size: cover;background-repeat: no-repeat;";
+  if(getCookie("bingBackground") == "true") {
+    $("#bing-wallpaper").attr("checked",true);
+    document.documentElement.style = "background: url(\"http://bing.ioliu.cn/v1/rand/?w=1280&h=720\");background-size: cover;background-repeat: no-repeat;";
+  }
+  
+}
+
+function useWallpaper() {
+  if($("#bing-wallpaper").prop("checked")) {
+      setCookie("bingBackground","true");
+  } else {
+      setCookie("bingBackground","false");
+  }
+}
+
+function useParticle() {
+  if($("#particle").prop("checked")) {
+      setCookie("useParticle","true");
+  } else {
+      setCookie("useParticle","false");
+  }
 }
 
 

@@ -62,9 +62,10 @@
     display: none;
     position: absolute;
     font-size: 20px;
-    width: 60vw;
-    max-width: 750px;
-    max-height: 85%;
+    width: 60%;
+    max-width: 850px;
+    max-height: 1000px;
+    height: 85%;
     margin:auto;
     left:0;
     right:0;
@@ -74,13 +75,14 @@
     padding: 10px;
     background-color: rgba(255, 151, 66, 1);
     border-radius: 25px;
-    box-shadow: rgba(66, 66, 66, 0.3) 0px 0px 2px 2px;
+    box-shadow: rgba(66, 66, 66, 0.3) 2px 4px 8px 8px;
     -webkit-transition-duration: 0.2s;
 }
 
 .edit-content {
     display: flex;
     color: inherit;
+    height: 90%;
 }
 
 .edit-button {
@@ -111,7 +113,7 @@
     height: min-content;
     margin: auto  15px;
     padding: 10px;
-    background-color: rgba(245, 245, 245, 0.4);
+    background-color: rgba(245, 245, 245, 0.2);
     border-radius: 25px;
     box-shadow: rgba(66, 66, 66, 0.4) 4px 4px 4px 4px;
 }
@@ -123,20 +125,21 @@
     background-color: rgba(245, 245, 245, 0.4);
     border-radius: 7px;
     width: 100%;
-
+    /* min-height: 80%; */
+    /* min-height: 45vh; */
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 70vh;
-    min-height: 45vh;
+    height: 93%;
+    max-height: 1000px;
 }
 
 #title-area {
     width: 97%;
     max-width: 97%;
     min-width: 97%;
-    min-height: 200px;
-    height: 300px;
-    max-height: 500px;
+    min-height: 300px;
+    height: 95%;
+    resize: none;
     border-radius: 10px;
     white-space: pre-wrap;
     font-size: 17px;
@@ -150,7 +153,7 @@
 .website-piece {
     display: inline-flex;
     width: 100%;
-    margin: 3px;
+    margin: 10px 2px;
     border-radius: 5px;
 }
 
@@ -174,7 +177,7 @@
 }
 
 .edit-b-c {
-    margin: 5px;
+    margin: auto 5px;
 }
 
 .right {
@@ -187,7 +190,7 @@
 
 .tip {
     font-size: 11px;
-    margin: 0;
+    margin: 2px;
     padding: 0;
 }
 
@@ -195,8 +198,9 @@
     max-width: 95%;
     min-width: 95%;
     margin-left: 1%;
-    max-height: 100px;
+    max-height: 150px;
     min-height: 70px;
+    height: 85px;
     border-radius: 7px;
     white-space: pre-wrap;
     font-size: 17px;
@@ -235,10 +239,6 @@
     box-shadow: rgba(66, 66, 66, 0.4) 4px 4px 4px 4px;
 }
 
-.menu-content {
-    
-}
-
 /* 滚动槽 */
 ::-webkit-scrollbar {
     width: 6px;
@@ -254,4 +254,34 @@
     border-radius: 3px;
     background: rgba(0,0,0,0.12);
     -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+}
+
+.use-bing-wallpaper {
+    text-align: center;
+    margin: auto 0;
+    cursor: url("images/Hand.cur"),pointer;
+}
+
+.bing-wallpaper-checkbox {
+    margin: 7px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    cursor: url("images/Hand.cur"),pointer;
+}
+
+label {
+    cursor: url("images/Hand.cur"),pointer;
+}
+
+.bing-wallpaper-checkbox:checked {
+    display: block;
+    content: "\2714";
+    text-align: center;
+    color: lightcoral;
+    cursor: url("images/Hand.cur"),pointer;
+}
+
+#userLogin {
+    display: inline-flexbox;
 }
