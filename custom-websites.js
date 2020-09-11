@@ -29,23 +29,23 @@ function init_custom_website() {
         "https://www.osgeo.cn/app/",
         "http://www.atoolbox.net/"
         ]);
-        addWebsitePanel("北化",
-        ["数字校园",
-         "教务处",
-         "在线教育平台",
-         "北化邮箱",
-         "北化官网",
-         "newJudge（内网可用）",
-         "BUCTOJ"
-        ],
-        ["https://w.buct.edu.cn/",
-        "https://jwglxt-proxy2.buct.edu.cn/jwglxt/xtgl/login_slogin.html?language=zh_CN&_t=1546417336865",
-        "https://course-proxy2.buct.edu.cn/meol/index.do",
-        "https://mail.buct.edu.cn/",
-        "https://www.buct.edu.cn/",
-        "http://10.14.48.107/new",
-        "http://39.106.31.26/"
-        ]);
+        // addWebsitePanel("北化",
+        // ["数字校园",
+        //  "教务处",
+        //  "在线教育平台",
+        //  "北化邮箱",
+        //  "北化官网",
+        //  "newJudge（内网可用）",
+        //  "BUCTOJ"
+        // ],
+        // ["https://w.buct.edu.cn/",
+        // "https://jwglxt-proxy2.buct.edu.cn/jwglxt/xtgl/login_slogin.html?language=zh_CN&_t=1546417336865",
+        // "https://course-proxy2.buct.edu.cn/meol/index.do",
+        // "https://mail.buct.edu.cn/",
+        // "https://www.buct.edu.cn/",
+        // "http://10.14.48.107/new",
+        // "http://39.106.31.26/"
+        // ]);
     }
     
 
@@ -57,6 +57,8 @@ function init_custom_website() {
         var loginU = JSON.parse(getCookie("user"));
         login(loginU.uuuuu,loginU.ppppp);
     }
+
+    getHot();
 }
 
 //-------------------设置页面-----------------------------//
@@ -74,14 +76,14 @@ function createWebsitesGroup(title,names,urls,websiteHash) {
     "<div class='websites-group-piece' id='"+title+"-websitesgroup'>"+
         "<div class='website-group-piece'>"+
             "<input type='text' value='"+title.replace('-online','')+"' class='edit-input-class' readonly='readonly' id='"+title+"-name'>"+
-            "<button class='button-class edit-b-c right' onclick=\"getWebsitesGroup(\'"+title+"\')\"></button>"+
-            "<button class='button-class edit-b-c delete' onclick=\"deleteWebsitesGroup(\'"+title+"\')\"></button>"+
+            "<button class='button-class edit-b-c right' id='"+title+"-submitbutton' onclick=\"getWebsitesGroup(\'"+title+"\')\"></button>"+
+            "<button class='button-class edit-b-c delete' id='"+title+"-deletebutton' onclick=\"deleteWebsitesGroup(\'"+title+"\')\"></button>"+
             "<p class='tip' id='"+title+"-websiteHash' style='margin: auto 2px;text-decoration:unserline;cursor: url(\"images/IBeam.cur\"),text;'>"+websiteHash+"</p>"+
         "</div>"+
         "<textarea id='"+title+"-textarea' class='websites-group'>"+text+"</textarea>"+
         "<div style='display: inline-flex;'>"+
             "<input type='checkbox' style='margin: auto 5px;' class='bing-wallpaper-checkbox' onclick=\"isUpdateGroup(\'"+title+"\')\" id=\'"+title+"-update\'>"+
-            "<label class='tip' style='margin: auto 2px;' for=\'"+title+"-update\'>"+
+            "<label class='tip' id='"+title+"-update-tip' style='margin: auto 2px;' for=\'"+title+"-update\'>"+
                 "要同步嘛"+
             "</label>"+
         "</div>"+
@@ -93,7 +95,6 @@ function deleteWebsitesGroup(title) {
         var realtitle = title.replace('-online','');
         for (const j in user.websiteGroups) {
             if (user.websiteGroups[j].groupName == realtitle) {
-                console.log(j);
                 user.websiteGroups.splice(j,1);
                 break;
             }
@@ -164,7 +165,6 @@ function getWebsitesGroup(title) {
                 break;
             }
         }
-        console.log(user);
 
         $.ajax({
             type:"POST",
@@ -187,7 +187,6 @@ function getWebsitesGroup(title) {
         //更新本地websiteGroup
         var website = $("#"+title+"-textarea").val().trim();
     
-        console.log(websites);
         var websites=website.split(';');
         var names = [];var urls = [];
     
@@ -221,7 +220,6 @@ function getWebsitesGroup(title) {
 //通过websiteHash添加指定WebsiteGroup
 function addWebsiteGroupByWebsiteHash() {
     var websiteHash = $("#websiteHash").val();
-    console.log(websiteHash);
 
     $.ajax({
         type:"post",
@@ -234,7 +232,6 @@ function addWebsiteGroupByWebsiteHash() {
             if (result != '') {
                 if(user != undefined) {
                     user.websiteGroups.push(result);
-                    console.log(user);
                     createWebsitePanelOnline(result.groupName,result.links);
                 } else {
                     var tmp = {
@@ -258,7 +255,6 @@ function addWebsiteGroupByWebsiteHash() {
             }
         },
         error:function (err){
-            console.log(err);
             $("#getwebsite-tip").text("好像没有这个导航组诶");
         }
     });
@@ -350,7 +346,6 @@ function addWebsitePanel(title,names,urls) {
 //---------------下面这一段是动态创建组件函数---------------//
 function createWebsitePanel(title) {
     if(!custom_website.has(title)) {
-        console.log("该分类不存在");
         return;
     }
     var tmp = custom_website.get(title);
@@ -392,7 +387,6 @@ function createWebsitePanelOnline(title,links,websiteHash) {
 
     createWebsitesGroup(title+'-online',names,urls,websiteHash);
     $("#"+title+"-online-update").attr("checked",true);
-    console.log($("#"+title+"-online-update").prop("checked"));
 }
 
 //---------------下面这一段是动态表格处理函数---------------//
@@ -415,7 +409,7 @@ function createTable(names,urls) {
                 "<a class='website-a' target='_blank' href="+urls[i]+">"+names[i]+"</a>"+
             "</div>"+
         "</td>";
-        if(counter==6) {
+        if(counter==3) {
             table += "</tr>";
             counter = 0;
         }

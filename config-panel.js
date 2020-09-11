@@ -1,15 +1,23 @@
 var config = {
-    title:"- 自 产 自 销 -",
-    tab:"- 自 产 自 销 -",
-    index:0,
+    title:"CLARQUES NAV",
+    tab:"CLARQUES PRO",
+    index:"百度",
 
     global(){
         return this;
     }
 };
-var searchEngine = new Map();
+var searchEngine = new Map();//用户自定义搜索引擎
 
 function initPanels() {
+    if(!checkCookie("searchEngine")) {
+        searchEngine.set("百度","https://www.baidu.com/s?&wd=");
+        searchEngine.set("多吉搜索","https://www.dogedoge.com/results?q=");
+        searchEngine.set("搜狗","https://www.sogou.com/web?query=");
+        searchEngine.set("gobai","https://gobaidugle.com/search?keyword=");
+        searchEngine.set("知乎","https://www.zhihu.com/search?type=content&q=");
+        setCookie("searchEngine",_mapToJson(searchEngine));
+    }
     if(checkCookie("searchEngine")) {
         searchEngine = _jsonToMap(getCookie("searchEngine"));
     }
@@ -20,10 +28,6 @@ function initPanels() {
         head.innerHTML = config.title;
         index = config.index;
         document.getElementById("ohp-title").innerText = config.tab;
-    }
-    for(let name of searchEngine.keys()) {
-        urls.push(searchEngine.get(name));
-        document.getElementById("edit-search-engine-panel").innerHTML += createSearchEngine(name,searchEngine.get(name));
     }
     initEnginePanel();
 }
@@ -62,11 +66,11 @@ function adjustsearchEngine(name,url) {
         $("#url-searchEngine-input").val("");
     }
     searchEngine.set(name,url);
+    addAllEngines(name,url)
     setCookie("searchEngine",_mapToJson(searchEngine));
 }
 
 function deletesearchEngine(name) {
-    console.log("deleting");
     var id = '#'+name+"-piece"
     $(id).remove();
     searchEngine.delete(name);
@@ -87,29 +91,48 @@ function createSearchEngine(name,url) {
 }
 
 //------------------------------搜索引擎选择------------------------------//
-function addAllEngines(index,url) {
+function addAllEngines(name,url) {
+    var baseUrl = getMainDomain(url);
+
     var engineBlock = 
-    "<button style='background:url("+url+"/favicon.ico) no-repeat;background-size:cover;' class='edit-button' onclick='chooseEngine("+index+")' id='choose-engine-"+index+"'></button>";
+    "<button style='background:url("+baseUrl+"/favicon.ico) no-repeat;background-size:cover;' class='edit-button' onclick='chooseEngine(\""+name+"\")' id='choose-engine-"+index+"'></button>";
     var enginePanel = document.getElementById("float-window");
     enginePanel.innerHTML += engineBlock;
 }
 
 function initEnginePanel() {
     var se = document.getElementById("search-engine");
-    se.style = "background:url("+urls[index].slice(0,urls[config.index].indexOf("com")+3)+"/favicon.ico) no-repeat;background-size:cover;";
+    se.style = "background:url("+getMainDomain(searchEngine.get(index))+"/favicon.ico) no-repeat;background-size:cover;";
 
-    for(let i in urls) {
-        if(urls[i]!=""){
-            addAllEngines(i,urls[i].slice(0,urls[i].indexOf("com")+3));
+    for(let name of searchEngine.keys()) {
+        if(searchEngine.get(name)!=""){
+            addAllEngines(name,searchEngine.get(name));
+            document.getElementById("edit-search-engine-panel").innerHTML += createSearchEngine(name,searchEngine.get(name));
         }
     }
 }
 
 function chooseEngine(index) {
     config.index = index;
-    console.log(index);
     var se = document.getElementById("search-engine");
-    se.style = "background:url("+urls[index].slice(0,urls[index].indexOf("com")+3)+"/favicon.ico) no-repeat;background-size:cover;";
+    se.style = "background:url("+getMainDomain(searchEngine.get(index))+"/favicon.ico) no-repeat;background-size:cover;";
     setCookie("config", convertJSON(this.config));
     closeWindow("#float-window");
+}
+
+function getMainDomain(url) {
+    if(url.indexOf('http') == -1){
+        url = 'http://' + url;
+    }
+    var counter = 0;
+    var baseUrl;
+    for(let i = 0;i < url.length; i++) {
+        if(url.charAt(i) == '/') {
+            counter ++;
+            if(counter == 3) {
+                baseUrl = url.substring(0,i);
+                return baseUrl;
+            }
+        }
+    }
 }

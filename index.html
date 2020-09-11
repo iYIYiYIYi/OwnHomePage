@@ -2,26 +2,24 @@
 <html class="panel">
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <title id="ohp-title">- 自   产   自   销 -</title>
+        <title id="ohp-title">CLARQUES PRO</title>
         
         <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
         <script type="text/javascript" src="color.json"></script>
         
-        <script type="text/javascript" src="script.js?v=20200812"></script>
-        <script type="text/javascript" src="window-control.js?v=20200901-2"></script>
-        <script type="text/javascript" src="custom-websites.js"></script>
-        <script type="text/javascript" src="config-panel.js"></script>
+        <script type="text/javascript" src="script.js?v=20200911-1"></script>
+        <script type="text/javascript" src="window-control.js?v=20200911-1"></script>
+        <script type="text/javascript" src="custom-websites.js?v=20200911-2"></script>
+        <script type="text/javascript" src="config-panel.js?v=20200911-4"></script>
         <script type="text/javascript" src="md5.js"></script>
 
-        <script type="text/javascript" src="respond-server.js?v=20200901-1"></script>
+        <script type="text/javascript" src="respond-server.js?v=20200911-4"></script>
         
-        <link rel="stylesheet" type="text/css" href="style.css?v=20200812-1">
-        <link rel="stylesheet" type="text/css" href="window.css?v=20200812-1">
+        <link rel="stylesheet" type="text/css" href="style.css?v=20200911-2">
+        <link rel="stylesheet" type="text/css" href="window.css?v=20200911-2">
         <link rel="icon"  href="images/favicon.ico"  type="image/x-ico" />
     </head>
     <body>
-        <!-- <script src="https://blog-static.cnblogs.com/files/zouwangblog/mouse-click.js"></script>
-            <canvas width="1777" height="841" style="position: absolute; left: 0px; top: 0px; z-index: inherit -100;"></canvas> -->
 
         <div class="Config">
             <button class="button-class" id="config" onclick="activeWindow('#edit-window')"></a>
@@ -29,7 +27,7 @@
         <div class="center-panel">
             <div class="Nav-head">
                 <span id="head">
-                    - 自   产   自   销 -
+                    CLARQUES NAV
                 </span>
             </div>
             <div class="search-panel">
@@ -49,32 +47,33 @@
             </div>
             <div class="content-panel" id="content">
                 <div class="inline-panel">
+
                     <div class="calendar panel">
+                        常用网页:
+                        <div class="favo-websites" id="favo-websites">
+                            <div class="recent-website" onclick="activeWindow('#add-website-window')">                  
+                                <a class="website-a"><div class="website-icon" style="background: url('images/add.png') no-repeat;"></div>添加</a>
+                            </div>
+                            <!-- <div class="recent-website">
+                                <div class="remove-website" onclick="test()"></div>
+                                <a class="website-a" href="https://www.baidu.com" target="_blank">
+                                    <div class="website-icon">
+                                    </div>
+                                    百度</a>
+                            </div> -->
+                        </div>
                         当前时间:
                         <br>
                         <label id="clock">---</label>
                         <br>
-                        <br>
                         今日天气:
                         <br>
                         <div id="he-plugin-simple"></div>
-                        
-                        <br>
                     </div>
                     
                     <div class="search-history-panel panel">
-                        常用网页<p class="tip">双击文字删除，单击图标打开</p>
-                        <div class="favo-websites" id="favo-websites">
-                            <!-- <div class="website" id="tt-userWebsite" ondblclick="removeWebsite('tt')"> 
-                                <button class="deleteWebsite"></button>
-                                <a class="website-a" href="https://www.baidu.com">
-                                    <div class="website-icon"></div>
-                                </a>
-                                百度
-                            </div> -->
-                            <div class="website" onclick="activeWindow('#add-website-window')">                  
-                                <a class="website-a"><div class="website-icon"></div>添加</a>
-                            </div>
+                        知乎热榜
+                        <div id="hot" class="hot-websites">
                         </div>
                     </div><br>
                 </div>
@@ -152,9 +151,10 @@
                 </div>
                 <div id="edit-search-engine-panel" class="menu-content" style="display: none;">
                     <h4>编辑搜索引擎</h4>
+                    <p class="tip">链接的最后一个参数应该是搜索关键字哦</p>
 
                     <div class="website-piece">
-                        <input type="text" placeholder="网站名称" id="name-searchEngine-input" class="edit-input-class">
+                        <input type="text" placeholder="名称" id="name-searchEngine-input" class="edit-input-class">
                         <input type="text" placeholder="地址" id="url-searchEngine-input" class="edit-input-class">
                         <button class="button-class edit-b-c right" onclick="adjustsearchEngine($('#name-searchEngine-input').val(),$('#url-searchEngine-input').val())"></button>
                     </div>
@@ -266,4 +266,7 @@
         </script>
         <script src="https://widget.heweather.net/simple/static/js/he-simple-common.js?v=1.1"></script>
 
+        <footer>
+            2020@CLARQUES-NAV BETA-v1 &nbsp; 热榜数据来源：<a href="https://mo.fish/">鱼塘热榜</a> 
+        </footer>
 </html>

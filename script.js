@@ -2,16 +2,11 @@ window.onload = init;
 
 var titles = new Array();       //用户自定义网站名称
 var userWebsites = new Array(); //用户自定义常用网站
-var urls = new Array();         //用户自定义搜索引擎
 
 function init() {
 
 
   init_custom_website();
-  urls.push("https://www.baidu.com/s?&wd=");
-  urls.push("https://www.dogedoge.com/results?q=");
-  urls.push("https://www.sogou.com/web?query=");
-  urls.push("https://gobaidugle.com/search?keyword=");
   initPanels();
   initWebsites();
   loadJSON('color.json');
@@ -54,10 +49,11 @@ function search() {
     var keyword = document.getElementById("search-key").value;
     if(keyword===""){
         document.getElementById("search-key").placeholder = "请输入关键字";
-        return;
+        return false;
     }
-
-    window.open(urls[config.index]+keyword);
+      
+    window.open(searchEngine.get(config.index)+keyword);
+    return false;
 }
 
 function getTime() {
@@ -82,13 +78,60 @@ function initWebsites() {
 }
 
 function loadCustomWebsite(userWebsite,title) {
+  if(userWebsite.indexOf('http') == -1){
+    userWebsite = 'http://' + userWebsite;
+  }
+  var counter = 0;
+  var baseUrl;
+  for(let i = 0;i < userWebsite.length; i++) {
+    if(userWebsite.charAt(i) == '/') {
+      counter ++;
+      if(counter == 3) {
+        baseUrl = userWebsite.substring(0,i);
+      }
+    }
+  }
+  
+  var imgscr = baseUrl + "/favicoon.ico";
+
   var favo_websites = document.getElementById("favo-websites");
-  favo_websites.innerHTML += 
-  "<div class='website' id='"+title+"-userWebsite' ondblclick=\"removeWebsite(\'"+title+"\')\">"+
-    "<a class='website-a' target='_blank' href="+userWebsite+">"+
-      "<div class='website-icon' style='background: url("+userWebsite+"/favicon.ico"+") no-repeat;background-size:cover;'></div>"+
-    "</a>"+title+
-  "</div>";
+  if(validateImage(imgscr)){
+    favo_websites.innerHTML += 
+    "<div class='recent-website' id='"+title+"-userWebsite'>"+
+      "<div class='remove-website' onclick='removeWebsite(\""+title+"\")'></div>"+
+      "<a class='website-a' target='_blank' href="+userWebsite+">"+
+        "<div class='website-icon' style='background: url("+baseUrl+"/favicon.ico"+") no-repeat;background-size:cover;'>"
+        +"</div>"+
+        title+
+      "</a>"+
+    "</div>";
+  } else {
+
+    favo_websites.innerHTML += 
+    "<div class='recent-website' id='"+title+"-userWebsite'>"+
+      "<div class='remove-website' onclick='removeWebsite(\""+title+"\")'></div>"+
+      "<a class='website-a' target='_blank' href="+userWebsite+">"+
+        "<div class='website-icon' >"
+        +"</div>"+
+        title+
+      "</a>"+
+    "</div>";
+  }
+}
+
+function validateImage(url)
+{    
+  return new Promise(function(resolve, reject) {
+    var ImgObj = new Image()
+    ImgObj.src = url
+    ImgObj.onload = function(res) {
+      resolve(res)
+    }
+    ImgObj.onerror = function(err) {
+      reject(err)
+    }
+  }).catch((e)=>{});
+
 }
 
 function submitWebsite() {
@@ -96,7 +139,6 @@ function submitWebsite() {
   var url = $("#input-custom-website").val();
   var urlIndex = userWebsites.indexOf(url);
   if(urlIndex !== -1) {
-    console.log("已存在");
     titles[i] = siteName;
     setCookie("siteNames",titles);
     initWebsites();

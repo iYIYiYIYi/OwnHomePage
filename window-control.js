@@ -1,5 +1,9 @@
 function activeWindow(id) {
-    $(id).show();
+    if ($(id).css('display')=='none') {
+        $(id).show();
+    } else {
+        closeWindow(id);
+    }
 }
 
 function closeWindow(id) {
