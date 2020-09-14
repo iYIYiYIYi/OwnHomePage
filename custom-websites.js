@@ -56,6 +56,8 @@ function init_custom_website() {
     if(checkCookie("user")){
         var loginU = JSON.parse(getCookie("user"));
         login(loginU.uuuuu,loginU.ppppp);
+    } else {
+        loadJSON('color.json');
     }
 
     getHot();
@@ -139,13 +141,13 @@ function getWebsitesGroup(title) {
             if(websites[i] != ""){
                 if(i === "0") {
                     tmpLink = websites[i].trim().slice(websites[i].indexOf('|')+1,websites[i].length);
-                    if(tmpLink.indexOf(header) == -1) {
+                    if(tmpLink.indexOf('http') == -1) {
                         tmpLink = header + tmpLink;
                     }
                     websitelinks[websites[i].trim().slice(0,websites[i].indexOf('|'))] = tmpLink;
                 } else {
                     tmpLink = websites[i].trim().slice(websites[i].indexOf('|'),websites[i].length);
-                    if(tmpLink.indexOf(header) == -1) {
+                    if(tmpLink.indexOf('http') == -1) {
                         tmpLink = header + tmpLink;
                     }
                     websitelinks[websites[i].trim().slice(0,websites[i].indexOf('|')-1)] = tmpLink;
@@ -179,6 +181,27 @@ function getWebsitesGroup(title) {
                     $("#"+title+"-update").attr("checked",false);
                 } else {
                     user = result;
+                    $("#"+title).remove();
+                    $("#"+title).remove
+
+                    var names = [];
+                    var urls = [];
+                    for (const key in websitelinks) {
+                        names.push(key)
+                        urls.push(websitelinks[key]);
+                    }
+
+                    var div = "<div class='reco-websites standard-website-panel panel' id='"+title+"-online'>"+
+                                    "<div class='panel-title'>"+
+                                    realtitle+
+                                    "</div>"+
+                                    "<div class='websites-table'>"+
+                                        createTable(names,urls)+
+                                    "</div>"+
+                                "</div>";
+
+                    var content = document.getElementById("website-group");
+                    content.innerHTML += div;
                 }
             }
         });
@@ -195,14 +218,14 @@ function getWebsitesGroup(title) {
                 if(i === "0") {
                     names[i] = websites[i].trim().slice(0,websites[i].indexOf('|'));
                     tmpLink = websites[i].trim().slice(websites[i].indexOf('|')+1,websites[i].length);
-                    if(tmpLink.indexOf(header) == -1){
+                    if(tmpLink.indexOf('http') == -1){
                         tmpLink = header + tmpLink;
                     }
                     urls[i] = tmpLink;
                 } else {
                     names[i] = websites[i].trim().slice(0,websites[i].indexOf('|')-1);
                     tmpLink = websites[i].trim().slice(websites[i].indexOf('|'),websites[i].length);
-                    if(tmpLink.indexOf(header) == -1){
+                    if(tmpLink.indexOf('http') == -1){
                         tmpLink = header + tmpLink;
                     }
                     urls[i] = tmpLink;

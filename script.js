@@ -9,7 +9,6 @@ function init() {
   init_custom_website();
   initPanels();
   initWebsites();
-  loadJSON('color.json');
   // createRandomColorPanel();
   
   if(getCookie("useParticle") == "true") {
@@ -78,7 +77,7 @@ function initWebsites() {
 }
 
 function loadCustomWebsite(userWebsite,title) {
-  if(userWebsite.indexOf('http') == -1){
+  if(userWebsite.indexOf('http') == -1||userWebsite.indexOf('https') == -1){
     userWebsite = 'http://' + userWebsite;
   }
   var counter = 0;

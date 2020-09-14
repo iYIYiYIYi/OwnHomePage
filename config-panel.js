@@ -121,7 +121,7 @@ function chooseEngine(index) {
 }
 
 function getMainDomain(url) {
-    if(url.indexOf('http') == -1){
+    if(url.indexOf('http') == -1||url.indexOf('https') == -1){
         url = 'http://' + url;
     }
     var counter = 0;

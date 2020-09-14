@@ -43,7 +43,9 @@ function loadUser(result) {
         //生成面板
         createWebsitePanelOnline(result.websiteGroups[j].groupName,result.websiteGroups[j].links,result.websiteGroups[j].websiteHash);
     }
-    
+
+
+    loadJSON('color.json');
     $("#getwebsite-tip").text("登陆就会保存在云端了");
 }
 
