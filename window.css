@@ -11,7 +11,7 @@
     color: rgb(80, 80, 80);
     max-height: 250px;
     padding: 0 10px;
-    background-color: rgba(255, 151, 66, 1);
+    background-color: rgba(110, 110, 110, 1);
     border-radius: 10px;
     box-shadow: rgba(66, 66, 66, 0.3) 0px 0px 2px 2px;
     -webkit-transition-duration: 0.2s;
@@ -74,7 +74,7 @@
     position: fixed;
     color: rgb(80, 80, 80);
     padding: 10px;
-    background-color: rgba(255, 151, 66, 1);
+    background-color: rgb(110, 110, 110);
     border-radius: 17px;
     box-shadow: rgba(66, 66, 66, 0.3) 2px 4px 8px 8px;
     -webkit-transition-duration: 0.2s;

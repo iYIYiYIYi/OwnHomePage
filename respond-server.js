@@ -22,7 +22,10 @@ function login(username,passwordHash) {
         },
         error:function (error) {
             $("#login-tip").text("哎呀，服务器不见了！");
-        } 
+        },
+        complete:function () {
+            loadJSON('color.json');
+        }
         
     })
 }
@@ -45,7 +48,7 @@ function loadUser(result) {
     }
 
 
-    loadJSON('color.json');
+    // loadJSON('color.json');
     $("#getwebsite-tip").text("登陆就会保存在云端了");
 }
 
