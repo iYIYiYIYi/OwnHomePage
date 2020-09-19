@@ -35,7 +35,7 @@ function init_custom_website() {
         //  "在线教育平台",
         //  "北化邮箱",
         //  "北化官网",
-        //  "newJudge（内网可用）",
+        //  "newJudge(内网)",
         //  "BUCTOJ"
         // ],
         // ["https://w.buct.edu.cn/",
