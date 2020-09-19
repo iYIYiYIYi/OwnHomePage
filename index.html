@@ -7,16 +7,16 @@
         <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
         <script type="text/javascript" src="color.json?v=20200918"></script>
         
-        <script type="text/javascript" src="script.js?v=20200918-1"></script>
-        <script type="text/javascript" src="window-control.js?v=20200918-1"></script>
-        <script type="text/javascript" src="custom-websites.js?v=20200918-1"></script>
-        <script type="text/javascript" src="config-panel.js?v=20200918-1"></script>
+        <script type="text/javascript" src="script.js?v=20200919-1"></script>
+        <script type="text/javascript" src="window-control.js?v=20200919-1"></script>
+        <script type="text/javascript" src="custom-websites.js?v=20200919-1"></script>
+        <script type="text/javascript" src="config-panel.js?v=20200919-1"></script>
         <script type="text/javascript" src="md5.js"></script>
 
-        <script type="text/javascript" src="respond-server.js?v=20200918-1"></script>
+        <script type="text/javascript" src="respond-server.js?v=20200919-1"></script>
         
-        <link rel="stylesheet" type="text/css" href="style.css?v=20200918-1">
-        <link rel="stylesheet" type="text/css" href="window.css?v=20200918-1">
+        <link rel="stylesheet" type="text/css" href="style.css?v=20200919-2">
+        <link rel="stylesheet" type="text/css" href="window.css?v=20200919-2">
         <link rel="icon"  href="images/favicon.ico"  type="image/x-ico" />
     </head>
     <body>
@@ -42,7 +42,9 @@
                       }
                     }; 
                 </script>
-                <input class="input-search" id="search-key" type="text" placeholder="搜索" />
+                <input class="input-search" value=""  type="text" placeholder="搜点什么?" style="display: none;" autocomplete="off"/>
+                <input class="input-search" value=""  type="password" placeholder="搜点什么?" style="display: none;" autocomplete="off"/>
+                <input class="input-search" value="" id="search-key" name="search-key" autocomplete="off" type="text" readonly onfocus="this.removeAttribute('readonly');" placeholder="搜点什么?" />
                 <button class="button-class" id="search" onclick="search()"></button>
             </div>
             <div class="content-panel" id="content">
@@ -154,8 +156,8 @@
                     <p class="tip">链接的最后一个参数应该是搜索关键字哦</p>
 
                     <div class="website-piece">
-                        <input type="text" placeholder="名称" id="name-searchEngine-input" class="edit-input-class">
-                        <input type="text" placeholder="地址" id="url-searchEngine-input" class="edit-input-class">
+                        <input type="text" placeholder="引擎名称" id="name-searchEngine-input" class="edit-input-class">
+                        <input type="text" placeholder="引擎链接" id="url-searchEngine-input" class="edit-input-class">
                         <button class="button-class edit-b-c right" onclick="adjustsearchEngine($('#name-searchEngine-input').val(),$('#url-searchEngine-input').val())"></button>
                     </div>
 
@@ -181,9 +183,13 @@
                         <p class="tip">格式："name|url;"，不同url之间使用;隔开</p>
                         <button onclick="setNewWebsitesGroup()" style="margin: 5px;" class="square-button-class edit-b-c edit-square-button">添加</button>
                         <div style="display: inline-flex;">
-                            <input type="checkbox" style="margin: auto 5px;" class="bing-wallpaper-checkbox" id="websites-group-update">
+                            <label class="switch-btnS">
+                                <input class="checked-switchS" type="checkbox"id="websites-group-update"/>
+                                <span class="text-switchS"></span> 
+                                <span class="toggle-btnS"></span> 
+                            </label>
                             <label class="tip" style="margin: auto 2px;" for="websites-group-update">
-                                同步到云端
+                                要同步到云端嘛
                             </label>
                         </div>
                     </div>
@@ -201,12 +207,16 @@
                     <h4>编辑用户</h4>
                     <div class="user website-piece">
                         <div id="userLogin">
-                            <input id="username" type="text" class="edit-input-class" placeholder="用户名">
-                            <input id="password" type="password" class="edit-input-class" placeholder="密码"><br>
+                            <input id="username" type="text" class="edit-input-class" placeholder="你叫森么">
+                            <input id="password" type="password" class="edit-input-class" placeholder="对个暗号"><br>
                             <div style="display: inline-flex;">
                                 <button id="login" onclick="loginUser()" style="margin: 10px 7px;" class="square-button-class edit-b-c edit-square-button">登录</button>
                                 <button id="register" onclick="registerUser()" style="margin: 10px 5px;" class="square-button-class edit-b-c edit-square-button">注册</button>
-                                <input type="checkbox" style="margin: auto 5px;" class="bing-wallpaper-checkbox" id="remember-user">
+                                <label class="switch-btnS">
+                                    <input class="checked-switchS" type="checkbox" id="remember-user"/>
+                                    <span class="text-switchS"></span> 
+                                    <span class="toggle-btnS"></span> 
+                                </label>
                                 <label class="tip" style="margin: auto 2px;" for="remember-user">
                                     要一直登录嘛
                                 </label>
@@ -221,16 +231,26 @@
                         </div>
                     </div>
                     <div class="website-piece">
-                        <input type="checkbox" class="bing-wallpaper-checkbox" onclick="useWallpaper()" id="bing-wallpaper">
-                        <label class="use-bing-wallpaper" for="bing-wallpaper">
-                            使用Bing壁纸
-                        </label><p class="tip" style="margin: auto 5px;">(刷新页面生效)</p>
+                        <div>
+                            &nbsp;使用Bing壁纸:<br>
+                            <p class="tip" style="margin: auto 5px;">(刷新页面生效)</p>
+                        </div>
+                        <label class="switch-btn" style="margin: 6px;margin-left: auto;">
+                            <input class="checked-switch" type="checkbox" onclick="useWallpaper()" id="bing-wallpaper"/>
+                            <span class="text-switch"></span> 
+                            <span class="toggle-btn"></span> 
+                        </label>
                     </div>
                     <div class="website-piece">
-                        <input type="checkbox" class="bing-wallpaper-checkbox" onclick="useParticle()" id="particle">
-                        <label class="use-bing-wallpaper" for="particle">
-                            使用背景粒子
-                        </label><p class="tip" style="margin: auto 5px;">(刷新页面生效)</p>
+                        <div>
+                            &nbsp;使用背景粒子:<br>
+                            <p class="tip" style="margin: auto 5px;">(刷新页面生效)</p>
+                        </div>
+                        <label class="switch-btn" style="margin: 6px;margin-left: auto;">
+                            <input class="checked-switch" type="checkbox"onclick="useParticle()" id="particle"/>
+                            <span class="text-switch"></span> 
+                            <span class="toggle-btn"></span> 
+                        </label>
                     </div>
                 </div>
             </div>
@@ -267,6 +287,6 @@
         <script src="https://widget.heweather.net/simple/static/js/he-simple-common.js?v=1.1"></script>
 
         <footer>
-            2020@CLARQUES-NAV BETA-v1 &nbsp; 热榜数据来源：<a href="https://mo.fish/">鱼塘热榜</a> 
+            2020@CLARQUES-NAV BETA-v3 &nbsp; 热榜数据来源：<a href="https://mo.fish/">鱼塘热榜</a> 
         </footer>
 </html>

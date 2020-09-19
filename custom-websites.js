@@ -84,9 +84,14 @@ function createWebsitesGroup(title,names,urls,websiteHash) {
         "</div>"+
         "<textarea id='"+title+"-textarea' class='websites-group'>"+text+"</textarea>"+
         "<div style='display: inline-flex;'>"+
-            "<input type='checkbox' style='margin: auto 5px;' class='bing-wallpaper-checkbox' onclick=\"isUpdateGroup(\'"+title+"\')\" id=\'"+title+"-update\'>"+
-            "<label class='tip' id='"+title+"-update-tip' style='margin: auto 2px;' for=\'"+title+"-update\'>"+
+            // "<input type='checkbox' style='margin: auto 5px;' class='bing-wallpaper-checkbox' >"+
+            "<label class='tip' id='"+title+"-update-tip' style='margin: auto 4px;' for=\'"+title+"-update\'>"+
                 "要同步嘛"+
+            "</label>"+
+            "<label class='switch-btnS'>"+
+                "<input class='checked-switchS' type='checkbox' onclick=\"isUpdateGroup(\'"+title+"\')\" id=\'"+title+"-update\'/>"+
+                "<span class='text-switchS'></span> "+
+                "<span class='toggle-btnS'></span> "+
             "</label>"+
         "</div>"+
     "</div>";
